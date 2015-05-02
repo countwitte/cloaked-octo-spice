@@ -13,6 +13,15 @@ implementation
 	App.Leds -> LedsC;
 	App.Timer -> TimerMilliC;
 	
+	//Radio
+	components ActiveMessageC;
+	components new AMSenderC(AM_TEMPTORADIO);
+	
+	App.Packet -> AMSenderC;
+	App.AMPacket -> AMSenderC;
+	App.AMSend -> AMSenderC;
+	App.AMControl -> ActiveMessageC;
+	
 	// For wiring into serial port
 	components SerialPrintfC;
 	
