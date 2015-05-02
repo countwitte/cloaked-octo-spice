@@ -9,11 +9,11 @@ module TempReceiveC
 	{
 		// General interfaces
 		interface Boot;
-		interface Timer<TMilli>;
+		//interface Timer<TMilli>;
 		interface Leds;
 		
 		// Read
-		interface Read<uint16_t> as TempRead;
+		//interface Read<uint16_t> as TempRead;
 		
 		// Radio
 		interface Packet;
@@ -36,7 +36,7 @@ implementation
 	
 	event void AMControl.startDone(error_t error){
 		if (error == SUCCESS) {
-			call Timer.startPeriodic(TIMER_PERIOD_MILLI);
+		//	call Timer.startPeriodic(TIMER_PERIOD_MILLI);
 			call Leds.led1On();
 		}
 		else {
@@ -49,30 +49,30 @@ implementation
 	
 	
 	
-	event void Timer.fired()
-	{
-		if(call TempRead.read() == SUCCESS)
-		{
-			call Leds.led2Toggle();
-		}
-		else
-		{
-			call Leds.led0Toggle();
-		}
-	}
-	
-	event void TempRead.readDone(error_t result, uint16_t val){
-	
-		if(result == SUCCESS)
-		{
-			printf("Base ID: %d Current temp is: %d",TOS_NODE_ID, val);
-		}
-		else 
-		{
-			printf("Error reading from sensor!");
-		}
-	
-	}
+//	event void Timer.fired()
+//	{
+//		if(call TempRead.read() == SUCCESS)
+//		{
+//			call Leds.led2Toggle();
+//		}
+//		else
+//		{
+//			call Leds.led0Toggle();
+//		}
+//	}
+//	
+//	event void TempRead.readDone(error_t result, uint16_t val){
+//	
+//		if(result == SUCCESS)
+//		{
+//			printf("Base ID: %d Current temp is: %d",TOS_NODE_ID, val);
+//		}
+//		else 
+//		{
+//			printf("Error reading from sensor!");
+//		}
+//	
+//	}
 	
 	event void AMSend.sendDone(message_t *msg, error_t error){
 		if (&pkt == msg) {
