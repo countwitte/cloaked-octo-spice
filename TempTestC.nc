@@ -67,7 +67,7 @@ implementation
 			if (!busy) {
 				TempToRadioMsg* ttrpkt = (TempToRadioMsg*)(call Packet.getPayload(&pkt, sizeof (TempToRadioMsg)));
 				ttrpkt ->nodeid = TOS_NODE_ID;
-				ttrpkt->temp = val;
+				ttrpkt->temp = -39.60 + 0.01*val;
 				if (call AMSend.send(AM_BROADCAST_ADDR, &pkt, sizeof (TempToRadioMsg)) == SUCCESS) {
 					busy = TRUE;
 				}	
@@ -84,6 +84,7 @@ implementation
 	event void AMSend.sendDone(message_t *msg, error_t error){
 		if (&pkt == msg) {
 			busy = FALSE;
+			call Leds.led2Toggle();
 		}	
 	}
 	
