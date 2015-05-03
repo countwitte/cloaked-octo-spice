@@ -73,7 +73,7 @@ implementation
       				busy = TRUE;
       			}	
     		}	
-			printf("Node ID: %d, Current temp is: %d\n",TOS_NODE_ID, val);
+			printf("Node ID: %d, Current temp is: %d\n",TOS_NODE_ID, (-39.60 + 0.01*val));
 		}
 		else 
 		{
