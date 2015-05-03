@@ -28,6 +28,7 @@ implementation
 {
 	bool busy = FALSE;
 	message_t pkt;
+	uint16_t valc;
 
 	event void Boot.booted()
 	{
@@ -65,15 +66,16 @@ implementation
 	
 		if(result == SUCCESS)
 		{
+			valc = (-39.60 + 0.01*val);
 			if (!busy) {
 				TempToRadioMsg* btrpkt = (TempToRadioMsg*)(call Packet.getPayload(&pkt, sizeof (TempToRadioMsg)));
     			btrpkt->nodeid = TOS_NODE_ID;
-    			btrpkt->temp = -39.60 + 0.01*val;
+    			btrpkt->temp = valc;
     			if (call AMSend.send(AM_BROADCAST_ADDR, &pkt, sizeof(TempToRadioMsg)) == SUCCESS) {
       				busy = TRUE;
       			}	
     		}	
-			printf("Node ID: %d, Current temp is: %d\n",TOS_NODE_ID, (-39.60 + 0.01*val));
+			printf("Node ID: %d, Current temp is: %d\n",TOS_NODE_ID, valc);
 		}
 		else 
 		{
