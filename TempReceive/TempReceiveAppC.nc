@@ -11,7 +11,7 @@ implementation
 	
 	App.Boot -> MainC;
 	App.Leds -> LedsC;
-	//App.Timer -> TimerMilliC;
+	App.Timer -> TimerMilliC;
 	
 	//Radio
 	components ActiveMessageC;
@@ -30,6 +30,6 @@ implementation
 	// Temperature Sensor
 	components new SensirionSht11C() as TempSensor;
 	
-	//App.TempRead -> TempSensor.Temperature;
+	App.TempRead -> TempSensor.Temperature;
 	
 }
