@@ -73,7 +73,7 @@ implementation
       				busy = TRUE;
       			}	
     		}	
-			printf("Base ID: %d Current temp is: %d",TOS_NODE_ID, val);
+			printf("Node ID: %d, Current temp is: %d\n",TOS_NODE_ID, val);
 		}
 		else 
 		{
@@ -91,7 +91,7 @@ implementation
 	event message_t * Receive.receive(message_t *msg, void *payload, uint8_t len){
 		if (len == sizeof(TempToRadioMsg)) {
 			TempToRadioMsg* ttrpkt = (TempToRadioMsg*)payload;
-			printf("Node ID: %d Current temp is: %d", (ttrpkt->nodeid), (ttrpkt->temp));
+			printf("Node ID: %d, Current temp is: %d\n", (ttrpkt->nodeid), (ttrpkt->temp));
 		}
 		return msg;	
 	}

@@ -3,7 +3,7 @@
 
 enum {
 	AM_TEMPTORADIO = 6,
-	TIMER_PERIOD_MILLI = 1000
+	TIMER_PERIOD_MILLI = 330000
 };
 
 typedef nx_struct TempToRadioMsg {
