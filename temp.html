@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Google Chart Example</title>
+   <script src="https://www.google.com/jsapi"></script>
+   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+   <script src="jquery.csv-0.71.js"></script>
+   <script>
+   	// load the visualization library from Google and set a listener
+	google.load("visualization", "1", {packages:["linechart"]});
+	google.setOnLoadCallback(drawChart);
+	
+	function drawChart() {
+   		// grab the CSV
+   		$.get("testtemp.txt", function(csvString) {
+   		
+   		// transform the CSV string into a 2-dimensional array
+		var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+		
+		// this new DataTable object holds all the data
+		var data = new google.visualization.DataTable();
+		
+		// determine the number of rows and columns.
+        var numRows = arrayData.length;
+        var numCols = arrayData[0].length;
+		
+		data.addColumn('number',arrayData[0][0]);
+		
+		for (var i = 1; i < numCols; i++)
+			data.addColumn('number', arrayData[0][i]);
+		
+		for (var i = 1; i < numRows; i++)
+			data.addRow(arrayData[i]);
+		
+		// this view can select a subset of the data at a time
+		var view = new google.visualization.DataView(data);
+		view.setColumns([{
+    		type: 'datetime',
+    		label: data.getColumnLabel(0),
+    		calc: function (dt, row) {
+        	var timestamp = dt.getValue(row, 0) * 1000; // convert to milliseconds
+        	return new Date(timestamp);
+    		}
+		}, 1, 2]);
+		
+		var options = {
+   			title: "Household Temperature Sensors",
+   			titleX: "Timestamp",
+   			titleY: "Temperature (Celsius)",
+   			interpolateNulls: true,
+   			smoothLine: true,
+   			pointSize: 2,
+   			lineSize: 1,
+   			legend: 'bottom'
+		};
+		
+		var chart = new google.visualization.LineChart(document.getElementById('chart'));
+		chart.draw(view, options);
+   		});
+   	}
+   </script>
+</head>
+<body>
+   <div id="chart" style="width:100%; height: 250px"></div>
+</body>
+</html>
