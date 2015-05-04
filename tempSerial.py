@@ -30,5 +30,3 @@ while True:
         else:
             file1.write(str(ts)+','+','+str2+'\n')
             file1.flush()
-    else:
-        #print strline
